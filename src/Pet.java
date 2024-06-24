@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 public class Pet {
 
     private String species;
@@ -16,7 +18,19 @@ public class Pet {
         System.out.println("Потрібно добре замести сліди...");
     }
 
-    public Pet(String species,String nickname ){
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "species='" + species + '\'' +
+                ", nickname='" + nickname + '\'' +
+                ", age=" + age +
+                ", trickLevel=" + trickLevel +
+                ", habits=" + Arrays.toString(habits) +
+                '}';
+    }
+
+    public Pet(String species, String nickname ){
         this.species = species;
         this.nickname = nickname;
     }
