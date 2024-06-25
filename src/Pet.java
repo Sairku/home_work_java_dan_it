@@ -43,7 +43,25 @@ public class Pet {
     }
     public Pet(){};
 
-    // Getter and Setters
+    public boolean equals(Pet pet) {
+        if (this == pet) return true;
+        if (pet == null) return false;
+        return age == pet.age &&
+                trickLevel == pet.trickLevel &&
+                species.equals(pet.species) &&
+                nickname.equals(pet.nickname) &&
+                Arrays.equals(habits, pet.habits);
+    }
+
+    public int hashCode() {
+        int result = species.hashCode();
+        result = 23 * result + nickname.hashCode();
+        result = 23 * result + age;
+        result = 23 * result + trickLevel;
+        result = 23 * result + Arrays.hashCode(habits);
+        return result;
+    }
+
     public String getSpecies(){
         return species;
     }
