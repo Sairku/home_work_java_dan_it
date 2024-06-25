@@ -30,7 +30,6 @@ public class Main {
         child2.setFamily(family2);
         child3.setFamily(family2);
 
-        // Виведення інформації про сім'ї
         System.out.println("Family 1:");
         System.out.println(family1);
         System.out.println("Members:");
@@ -46,14 +45,15 @@ public class Main {
         System.out.println(child2);
         System.out.println(child3);
 
-        // Демонстрація методів
         System.out.println("\nMethods for child1 and pet1:");
         child1.greetPet();
         child1.describePet();
+        System.out.println(child1);
+
         pet1.eat();
         pet1.respond();
         pet1.foul();
-        System.out.println(child1);
+        System.out.println(pet1);
 
     }
 }
