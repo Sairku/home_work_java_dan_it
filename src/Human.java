@@ -43,6 +43,12 @@ public class Human {
     }
 
     @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Human object is being deleted: " + this);
+        super.finalize();
+    }
+
+    @Override
     public String toString() {
         String motherName = family != null && family.getMother() != null ? family.getMother().getName() : "no mother";
         String fatherName = family != null && family.getFather() != null ? family.getFather().getName() : "no father";

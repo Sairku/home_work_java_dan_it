@@ -1,5 +1,6 @@
 import java.util.Arrays;
 
+
 public class Pet {
 
     private String species;
@@ -28,6 +29,12 @@ public class Pet {
                 ", trickLevel=" + trickLevel +
                 ", habits=" + Arrays.toString(habits) +
                 '}';
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Pet object is being deleted: " + this);
+        super.finalize();
     }
 
     public Pet(String species, String nickname ){
@@ -62,7 +69,7 @@ public class Pet {
         return result;
     }
 
-    public String getSpecies(){
+    public Species getSpecies(){
         return species;
     }
     public void setSpecies(String species) {

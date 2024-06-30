@@ -3,7 +3,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 // Створення домашніх улюбленців
-        Pet pet1 = new Pet("dog", "Rock", 5, 75, new String[]{"eat", "drink", "sleep"});
+        Pet pet1 = new Pet(Species.DOG, "Rock", 5, 75, new String[]{"eat", "drink", "sleep"});
         Pet pet2 = new Pet("cat", "Whiskers", 3, 60, new String[]{"scratch", "sleep", "play"});
         Pet pet3 = new Pet("bird", "Tweety", 2, 80, new String[]{"sing", "fly"});
 
@@ -55,5 +55,8 @@ public class Main {
         pet1.foul();
         System.out.println(pet1);
 
+        for (int i = 0; i < 10000; i++) {
+            new Human("Test", "Person", 2000 + i);
+        }
     }
 }

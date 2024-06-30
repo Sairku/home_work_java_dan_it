@@ -33,6 +33,12 @@ public class Family {
     }
 
     @Override
+    protected void finalize() throws Throwable {
+        System.out.println("Family object is being deleted: " + this);
+        super.finalize();
+    }
+
+    @Override
     public String toString() {
         return "Family{" +
                 "mother=" + mother +
