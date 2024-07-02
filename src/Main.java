@@ -3,19 +3,19 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
 // Створення домашніх улюбленців
-        Pet pet1 = new Pet(Species.DOG, "Rock", 5, 75, new String[]{"eat", "drink", "sleep"});
-        Pet pet2 = new Pet("cat", "Whiskers", 3, 60, new String[]{"scratch", "sleep", "play"});
-        Pet pet3 = new Pet("bird", "Tweety", 2, 80, new String[]{"sing", "fly"});
+        Pet pet1 = new Pet(Species.DOG , "Rock", 5, 75, new String[]{"eat", "drink", "sleep"});
+        Pet pet2 = new Pet(Species.CAT, "Whiskers", 3, 60, new String[]{"scratch", "sleep", "play"});
+        Pet pet3 = new Pet(Species.BIRD, "Tweety", 2, 80, new String[]{"sing", "fly"});
 
         // Створення людей
         Human mother1 = new Human("Jane", "Karleone", 1950);
         Human father1 = new Human("Vito", "Karleone", 1945);
-        Human child1 = new Human("Michael", "Karleone", 1977, 90, new String[][]{{"Monday", "gym"}, {"Tuesday", "coding"}}, null);
+        Human child1 = new Human("Michael", "Karleone", 1977, 90, new String[][]{{DayOfWeek.MONDAY.name(), "gym"}, {DayOfWeek.TUESDAY.name(), "coding"}}, null);
 
         Human mother2 = new Human("Sarah", "Connor", 1975);
         Human father2 = new Human("John", "Connor", 1970);
-        Human child2 = new Human("Kyle", "Connor", 2000, 85, new String[][]{{"Wednesday", "swimming"}, {"Thursday", "math"}}, null);
-        Human child3 = new Human("Kate", "Connor", 2002, 95, new String[][]{{"Friday", "painting"}, {"Saturday", "music"}}, null);
+        Human child2 = new Human("Kyle", "Connor", 2000, 85, new String[][]{{DayOfWeek.WEDNESDAY.name(), "swimming"}, {DayOfWeek.THURSDAY.name(), "math"}}, null);
+        Human child3 = new Human("Kate", "Connor", 2002, 95, new String[][]{{DayOfWeek.FRIDAY.name(), "painting"}, {DayOfWeek.SUNDAY.name(), "music"}}, null);
 
         // Створення сімей
         Family family1 = new Family(mother1, father1);

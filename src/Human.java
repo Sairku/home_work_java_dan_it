@@ -20,6 +20,7 @@ public class Human {
             System.out.println("У мене є " + family.getPet().getSpecies() + ", їй " + family.getPet().getAge() + " років, він " + trickDescription);
         }
     }
+
     public Human(String name, String surname, int year) {
         this.name = name;
         this.surname = surname;
@@ -50,18 +51,15 @@ public class Human {
 
     @Override
     public String toString() {
-        String motherName = family != null && family.getMother() != null ? family.getMother().getName() : "no mother";
-        String fatherName = family != null && family.getFather() != null ? family.getFather().getName() : "no father";
         return "Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", year=" + year +
                 ", iq=" + iq +
                 ", schedule=" + arrayToString(schedule) +
-                ", mother='" + motherName + '\'' +
-                ", father='" + fatherName + '\'' +
                 '}';
     }
+
     private String arrayToString(String[][] array) {
         if (array == null) return "null";
         StringBuilder sb = new StringBuilder("[");
@@ -96,41 +94,51 @@ public class Human {
         return result;
     }
 
-    public String getName(){
+    public String getName() {
         return name;
     }
-    public void setName(String name){
-            this.name = name;
+
+    public void setName(String name) {
+        this.name = name;
     }
-    public String getSurname(){
+
+    public String getSurname() {
         return surname;
     }
-    public void setSurname(String surname){
+
+    public void setSurname(String surname) {
         this.surname = surname;
     }
-    public int getYear(){
+
+    public int getYear() {
         return year;
     }
-    public void setYear(int year){
+
+    public void setYear(int year) {
         this.year = year;
     }
-    public  int getIq(){
+
+    public int getIq() {
         return iq;
     }
-    public void setIq(int iq){
+
+    public void setIq(int iq) {
         this.iq = iq;
     }
-    public String[][] getSchedule(){
+
+    public String[][] getSchedule() {
         return schedule;
     }
-    public void setSchedule(String[][] schedule){
+
+    public void setSchedule(String[][] schedule) {
         this.schedule = schedule;
     }
+
     public Family getFamily() {
         return family;
     }
+
     public void setFamily(Family family) {
         this.family = family;
     }
-
 }

@@ -1,5 +1,9 @@
+import org.junit.jupiter.api.Test;
+
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class Family {
     private Human mother;
@@ -11,8 +15,8 @@ public class Family {
         this.mother = mother;
         this.father = father;
         this.children = new ArrayList<>();
-        mother.setFamily(this);
-        father.setFamily(this);
+        this.mother.setFamily(this);
+        this.father.setFamily(this);
     }
 
     public void addChild(Human child) {
@@ -20,15 +24,19 @@ public class Family {
         child.setFamily(this);
     }
 
-    public boolean deleteChild(Human child) {
-        if (children.remove(child)) {
-            child.setFamily(null);
-            return true;
+    public boolean deleteChild(int index) {
+        if (index >= 0 && index < children.size()) {
+            Human child = children.remove(index);
+            if (child != null) {
+                child.setFamily(null);
+                return true;
+            }
         }
         return false;
     }
 
     public int countFamily() {
+
         return 2 + children.size();
     }
 
@@ -46,18 +54,6 @@ public class Family {
                 ", children=" + children +
                 ", pet=" + pet +
                 '}';
-    }
-
-    private String childrenToString() {
-        StringBuilder sb = new StringBuilder("[");
-        for (int i = 0; i < children.size(); i++) {
-            sb.append(children.get(i).toString());
-            if (i < children.size() - 1) {
-                sb.append(", ");
-            }
-        }
-        sb.append("]");
-        return sb.toString();
     }
 
     public boolean equals(Family family) {
@@ -101,4 +97,6 @@ public class Family {
     public void setPet(Pet pet) {
         this.pet = pet;
     }
+
+
 }
