@@ -4,6 +4,7 @@ public enum Species {
     BIRD,
     FISH,
     HAMSTER,
-    SNAKE,
-    TURTLE
+    ROBO_CAT,
+    DOMESTIC_CAT,
+    UNKNOWN
 }

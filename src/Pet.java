@@ -1,7 +1,7 @@
 import java.util.Arrays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-public class Pet {
+public abstract class Pet {
 
     private Species species;
     private String nickname;
@@ -12,9 +12,9 @@ public class Pet {
     public void eat (){
         System.out.println("Я ї'м!");
     }
-    public void respond(){
-        System.out.println("Привіт, хазяїн. Я -" + nickname +". Я скучив!");
-    }
+
+    public abstract void respond();
+
     public void foul (){
         System.out.println("Потрібно добре замести сліди...");
     }
@@ -37,18 +37,18 @@ public class Pet {
         super.finalize();
     }
 
-    public Pet(Species species, String nickname ){
-        this.species = species;
+    public Pet(String nickname ){
+        this.species = Species.UNKNOWN;
         this.nickname = nickname;
     }
-    public Pet(Species species,String nickname, int age, int trickLevel,String[] habits ){
-        this.species = species;
+    public Pet(String nickname, int age, int trickLevel,String[] habits ){
+        this.species = Species.UNKNOWN;
         this.nickname = nickname;
         this.age = age;
         this.trickLevel = trickLevel;
         this.habits = habits;
     }
-    public Pet(){};
+    public Pet(){this.species = Species.UNKNOWN;};
 
     public boolean equals(Pet pet) {
         if (this == pet) return true;

@@ -9,6 +9,7 @@ public class FamilyTest {
     private Human child1;
     private Human child2;
     private Human nonExistentChild;
+    private Pet pet;
 
     @BeforeEach
     public void setUp() {
@@ -20,17 +21,19 @@ public class FamilyTest {
         child2 = new Human("Jake", "Doe", 2010);
         nonExistentChild = new Human("NoName", "None", 2000);
 
+        pet = new Dog("Rock", 5, 75, new String[]{"eat", "drink", "sleep"});
+        family.setPet(pet);
+
         family.addChild(child1);
         family.addChild(child2);
     }
+
     @Test
     public void testToString() {
-        String expected = "Family{mother=Human{name='Jane', surname='Doe', year=1980, iq=0, schedule=null}, " +
-                "father=Human{name='John', surname='Doe', year=1975, iq=0, schedule=null}, " +
-                "children=[Human{name='Anna', surname='Doe', year=2005, iq=0, schedule=null}, " +
-                "Human{name='Jake', surname='Doe', year=2010, iq=0, schedule=null}], pet=null}";
+        String expected = "Family{mother=Human{name='Jane', surname='Doe', year=1980, iq=0, schedule=null}, father=Human{name='John', surname='Doe', year=1975, iq=0, schedule=null}, children=[Human{name='Anna', surname='Doe', year=2005, iq=0, schedule=null}, Human{name='Jake', surname='Doe', year=2010, iq=0, schedule=null}], pet=Pet{species='DOG', nickname='Rock', age=5, trickLevel=75, habits=[eat, drink, sleep]}}";
         assertEquals(expected, family.toString());
     }
+
 
     @Test
     public void testDeleteChildByIndex_Positive() {
