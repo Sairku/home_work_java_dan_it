@@ -1,19 +1,19 @@
 import org.junit.jupiter.api.Test;
-import static org.junit.jupiter.api.Assertions.*;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class HumanTest {
     @Test
     public void testToString() {
-        Human mother = new Human("Jane", "Doe", 1980);
-        Human father = new Human("John", "Doe", 1975);
-        Family family = new Family(mother, father);
+        Map<String, String> schedule = new HashMap<>();
+        schedule.put(DayOfWeek.MONDAY.name(), "gym");
+        schedule.put(DayOfWeek.TUESDAY.name(), "coding");
 
-        Human human = new Human("Anna", "Doe", 2005, 120, new String[][]{
-                {DayOfWeek.MONDAY.name(), "gym"},
-                {DayOfWeek.TUESDAY.name(), "music"}
-        }, family);
-
-        String expected = "Human{name='Anna', surname='Doe', year=2005, iq=120, schedule=[[MONDAY, gym], [TUESDAY, music]]}";
+        Human human = new Human("Anna", "Doe", 2005, 120, schedule, null);
+        String expected = "Human{name='Anna', surname='Doe', year=2005, iq=120, schedule={MONDAY=gym, TUESDAY=coding}}";
         assertEquals(expected, human.toString());
     }
 }

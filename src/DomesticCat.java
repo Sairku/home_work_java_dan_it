@@ -1,5 +1,7 @@
+import java.util.Set;
+
 public class DomesticCat extends Pet implements Foul {
-    public DomesticCat(String nickname, int age, int trickLevel, String[] habits) {
+    public DomesticCat(String nickname, int age, int trickLevel, Set<String> habits) {
         super(nickname, age, trickLevel, habits);
         this.setSpecies(Species.DOMESTIC_CAT);
     }

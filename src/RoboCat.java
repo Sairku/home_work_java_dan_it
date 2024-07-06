@@ -1,5 +1,7 @@
+import java.util.Set;
+
 public class RoboCat extends Pet implements Foul {
-    public RoboCat(String nickname, int age, int trickLevel, String[] habits) {
+    public RoboCat(String nickname, int age, int trickLevel, Set<String> habits) {
         super(nickname, age, trickLevel, habits);
         this.setSpecies(Species.ROBO_CAT);
     }

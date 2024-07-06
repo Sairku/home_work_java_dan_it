@@ -1,3 +1,5 @@
+import java.util.Map;
+
 public final class Man extends Human {
     public Man(String name, String surname, int year) {
         super(name, surname, year);
@@ -7,14 +9,16 @@ public final class Man extends Human {
         super(name, surname, year, mother, father);
     }
 
-    public Man(String name, String surname, int year, int iq, String[][] schedule, Family family) {
+    public Man(String name, String surname, int year, int iq, Map<String, String> schedule, Family family) {
         super(name, surname, year, iq, schedule, family);
     }
 
     @Override
     public void greetPet() {
-        if (getFamily().getPet() != null) {
-            System.out.println("Привіт, друже " + getFamily().getPet().getNickname());
+        if (getFamily().getPets() != null) {
+            for (Pet pet : getFamily().getPets()) {
+                System.out.println("Привіт, друже " + pet.getNickname());
+            }
         }
     }
 
@@ -22,4 +26,3 @@ public final class Man extends Human {
         System.out.println("Я лагоджу машину!");
     }
 }
-

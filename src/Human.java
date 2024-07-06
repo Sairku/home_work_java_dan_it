@@ -1,23 +1,29 @@
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Human {
     private String name;
     private String surname;
     private int year;
     private int iq;
-    private String[][] schedule;
+    private Map<String, String> schedule;
     private Family family;
 
     public void greetPet() {
-        if (family.getPet() != null) {
-            System.out.println("Привіт, " + family.getPet().getNickname());
+        if (family.getPets() != null) {
+            for (Pet pet : family.getPets()) {
+                System.out.println("Привіт, " + pet.getNickname());
+            }
         }
     }
 
     public void describePet() {
-        if (family.getPet() != null) {
-            String trickDescription = family.getPet().getTrickLevel() > 50 ? "дуже хитрий" : "майже не хитрий";
-            System.out.println("У мене є " + family.getPet().getSpecies() + ", їй " + family.getPet().getAge() + " років, він " + trickDescription);
+        if (family.getPets() != null) {
+            for (Pet pet : family.getPets()) {
+                String trickDescription = pet.getTrickLevel() > 50 ? "дуже хитрий" : "майже не хитрий";
+                System.out.println("У мене є " + pet.getSpecies() + ", їй " + pet.getAge() + " років, він " + trickDescription);
+            }
         }
     }
 
@@ -25,16 +31,18 @@ public class Human {
         this.name = name;
         this.surname = surname;
         this.year = year;
+        this.schedule = new HashMap<>();
     }
 
     public Human(String name, String surname, int year, Human mother, Human father) {
         this.name = name;
         this.surname = surname;
         this.year = year;
+        this.schedule = new HashMap<>();
         this.family = new Family(mother, father);
     }
 
-    public Human(String name, String surname, int year, int iq, String[][] schedule, Family family) {
+    public Human(String name, String surname, int year, int iq, Map<String, String> schedule, Family family) {
         this.name = name;
         this.surname = surname;
         this.year = year;
@@ -56,21 +64,8 @@ public class Human {
                 ", surname='" + surname + '\'' +
                 ", year=" + year +
                 ", iq=" + iq +
-                ", schedule=" + arrayToString(schedule) +
+                ", schedule=" + schedule +
                 '}';
-    }
-
-    private String arrayToString(String[][] array) {
-        if (array == null) return "null";
-        StringBuilder sb = new StringBuilder("[");
-        for (int i = 0; i < array.length; i++) {
-            sb.append("[").append(String.join(", ", array[i])).append("]");
-            if (i < array.length - 1) {
-                sb.append(", ");
-            }
-        }
-        sb.append("]");
-        return sb.toString();
     }
 
     public boolean equals(Human human) {
@@ -80,7 +75,7 @@ public class Human {
                 iq == human.iq &&
                 name.equals(human.name) &&
                 surname.equals(human.surname) &&
-                Arrays.equals(schedule, human.schedule) &&
+                schedule.equals(human.schedule) &&
                 (family != null ? family.equals(human.family) : human.family == null);
     }
 
@@ -89,7 +84,7 @@ public class Human {
         result = 23 * result + surname.hashCode();
         result = 23 * result + year;
         result = 23 * result + iq;
-        result = 23 * result + Arrays.hashCode(schedule);
+        result = 23 * result + schedule.hashCode();
         result = 23 * result + (family != null ? family.hashCode() : 0);
         return result;
     }
@@ -126,11 +121,11 @@ public class Human {
         this.iq = iq;
     }
 
-    public String[][] getSchedule() {
+    public Map<String, String> getSchedule() {
         return schedule;
     }
 
-    public void setSchedule(String[][] schedule) {
+    public void setSchedule(Map<String, String> schedule) {
         this.schedule = schedule;
     }
 

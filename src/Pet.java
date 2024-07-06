@@ -1,5 +1,6 @@
 import java.util.Arrays;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import java.util.HashSet;
+import java.util.Set;
 
 public abstract class Pet {
 
@@ -7,7 +8,7 @@ public abstract class Pet {
     private String nickname;
     private int age;
     private int trickLevel;
-    private String[] habits;
+    private Set<String> habits;
 
     public void eat (){
         System.out.println("Я ї'м!");
@@ -27,7 +28,7 @@ public abstract class Pet {
                 ", nickname='" + nickname + '\'' +
                 ", age=" + age +
                 ", trickLevel=" + trickLevel +
-                ", habits=" + Arrays.toString(habits) +
+                ", habits=" + habits.toString() +
                 '}';
     }
 
@@ -41,12 +42,12 @@ public abstract class Pet {
         this.species = Species.UNKNOWN;
         this.nickname = nickname;
     }
-    public Pet(String nickname, int age, int trickLevel,String[] habits ){
+    public Pet(String nickname, int age, int trickLevel,Set<String> habits ){
         this.species = Species.UNKNOWN;
         this.nickname = nickname;
         this.age = age;
         this.trickLevel = trickLevel;
-        this.habits = habits;
+        this.habits = new HashSet<>();
     }
     public Pet(){this.species = Species.UNKNOWN;};
 
@@ -57,7 +58,7 @@ public abstract class Pet {
                 trickLevel == pet.trickLevel &&
                 species.equals(pet.species) &&
                 nickname.equals(pet.nickname) &&
-                Arrays.equals(habits, pet.habits);
+                habits.equals(pet.habits);
     }
 
     public int hashCode() {
@@ -65,7 +66,7 @@ public abstract class Pet {
         result = 23 * result + nickname.hashCode();
         result = 23 * result + age;
         result = 23 * result + trickLevel;
-        result = 23 * result + Arrays.hashCode(habits);
+        result = 23 * result + habits.hashCode();
         return result;
     }
 
@@ -93,12 +94,11 @@ public abstract class Pet {
     public void setTrickLevel(int trickLevel) {
         this.trickLevel = trickLevel;
     }
-    public String[] getHabits() {
+    public Set<String> getHabits() {
         return habits;
     }
-    public void setHabits(String[] habits) {
+    public void setHabits(Set<String> habits) {
         this.habits = habits;
     }
-
-    }
+}
 
