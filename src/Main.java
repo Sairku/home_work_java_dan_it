@@ -68,21 +68,27 @@ public class Main {
         child2.setFamily(family2);
         child3.setFamily(family2);
 
-        System.out.println("Family 1:");
-        System.out.println(family1);
-        System.out.println("Members:");
-        System.out.println(mother1);
-        System.out.println(father1);
-        System.out.println(child1);
+        IFamilyDao familyDao = new CollectionFamilyDao();
+        FamilyService familyService = new FamilyService(familyDao);
+        FamilyController familyController = new FamilyController(familyService);
 
-        System.out.println("\nFamily 2:");
-        System.out.println(family2);
-        System.out.println("Members:");
-        System.out.println(mother2);
-        System.out.println(father2);
-        System.out.println(child2);
-        System.out.println(child3);
+        familyController.saveFamily(family1);
+        familyController.saveFamily(family2);
 
+        System.out.println("All families:");
+        familyController.displayAllFamilies();
+
+        Family retrievedFamily = familyController.getFamilyById(0);
+        System.out.println("\nRetrieved family by index 0:");
+        System.out.println(retrievedFamily);
+
+        boolean isDeleted = familyController.deleteFamilyByIndex(0);
+        System.out.println("\nFamily deleted by index 0: " + isDeleted);
+
+        System.out.println("\nAll families after deletion:");
+        familyController.displayAllFamilies();
+
+        // Використання методів для дитини та улюбленця
         System.out.println("\nMethods for child1 and pet1:");
         child1.greetPet();
         child1.describePet();
@@ -98,6 +104,7 @@ public class Main {
         father1.repairCar();
         mother1.makeup();
 
+        // Створення багатьох об'єктів для запуску збирача сміття
         for (int i = 0; i < 10000; i++) {
             new Human("Test", "Person", 2000 + i);
         }
