@@ -1,14 +1,36 @@
-import java.util.Arrays;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Human {
     private String name;
     private String surname;
-    private int year;
+    private long birthDate;
     private int iq;
     private Map<String, String> schedule;
     private Family family;
+
+    public Human(String name, String surname, String birthDateString, int iq) {
+        this.name = name;
+        this.surname = surname;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthDate = LocalDate.parse(birthDateString, formatter);
+        this.birthDate = birthDate.atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli();
+        this.iq = iq;
+        this.schedule = new HashMap<>();
+    }
+
+public Human(String name, String surname, long birthDate, int iq){
+    this.name = name;
+    this.surname = surname;
+    this.birthDate = birthDate;
+    this.iq = iq;
+    }
 
     public void greetPet() {
         if (family.getPets() != null) {
@@ -27,28 +49,35 @@ public class Human {
         }
     }
 
-    public Human(String name, String surname, int year) {
+    public Human(String name, String surname, long birthDate) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
         this.schedule = new HashMap<>();
     }
 
-    public Human(String name, String surname, int year, Human mother, Human father) {
+    public Human(String name, String surname, long birthDate, Human mother, Human father) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
         this.schedule = new HashMap<>();
         this.family = new Family(mother, father);
     }
 
-    public Human(String name, String surname, int year, int iq, Map<String, String> schedule, Family family) {
+    public Human(String name, String surname, long birthDate, int iq, Map<String, String> schedule, Family family) {
         this.name = name;
         this.surname = surname;
-        this.year = year;
+        this.birthDate = birthDate;
         this.iq = iq;
         this.schedule = schedule;
         this.family = family;
+    }
+
+    public String describeAge(){
+        LocalDate birthDate = Instant.ofEpochMilli(this.birthDate).atZone(ZoneId.systemDefault()).toLocalDate();
+        LocalDate now = LocalDate.now();
+        Period period = Period.between(birthDate, now);
+        return String.format("Вік: %d років, %d місяців, %d днів", period.getYears(), period.getMonths(), period.getDays());
     }
 
     @Override
@@ -59,34 +88,35 @@ public class Human {
 
     @Override
     public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthDate = Instant.ofEpochMilli(this.birthDate).atZone(ZoneId.systemDefault()).toLocalDate();
+        String formattedDate = birthDate.format(formatter);
+
         return "Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
-                ", year=" + year +
+                ", birthDate=" + formattedDate +
                 ", iq=" + iq +
                 ", schedule=" + schedule +
                 '}';
     }
 
-    public boolean equals(Human human) {
-        if (this == human) return true;
-        if (human == null) return false;
-        return year == human.year &&
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Human human = (Human) obj;
+        return birthDate == human.birthDate &&
                 iq == human.iq &&
-                name.equals(human.name) &&
-                surname.equals(human.surname) &&
-                schedule.equals(human.schedule) &&
-                (family != null ? family.equals(human.family) : human.family == null);
+                Objects.equals(name, human.name) &&
+                Objects.equals(surname, human.surname) &&
+                Objects.equals(schedule, human.schedule) &&
+                Objects.equals(family, human.family);
     }
 
+    @Override
     public int hashCode() {
-        int result = name.hashCode();
-        result = 23 * result + surname.hashCode();
-        result = 23 * result + year;
-        result = 23 * result + iq;
-        result = 23 * result + schedule.hashCode();
-        result = 23 * result + (family != null ? family.hashCode() : 0);
-        return result;
+        return Objects.hash(name, surname, birthDate, iq, schedule, family);
     }
 
     public String getName() {
@@ -105,12 +135,12 @@ public class Human {
         this.surname = surname;
     }
 
-    public int getYear() {
-        return year;
+    public long getBirthDate() {
+        return birthDate;
     }
 
-    public void setYear(int year) {
-        this.year = year;
+    public void setBirthDate(long birthDate) {
+        this.birthDate = birthDate;
     }
 
     public int getIq() {

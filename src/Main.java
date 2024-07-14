@@ -2,6 +2,8 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.time.LocalDate;
+import java.time.ZoneId;
 
 public class Main {
     public static void main(String[] args) {
@@ -30,8 +32,24 @@ public class Main {
         Pet pet4 = new RoboCat("Robo", 1, 100, habits4);
 
         // Створення людей
-        Man father1 = new Man("Vito", "Karleone", 1945);
-        Woman mother1 = new Woman("Jane", "Karleone", 1950);
+        long birthDate1 = LocalDate.of(1945, 1, 1)
+                .atStartOfDay(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli();
+
+        long birthDate2 = LocalDate.of(1950, 1, 1)
+                .atStartOfDay(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli();
+
+        long birthDate3 = LocalDate.of(1977, 1, 1)
+                .atStartOfDay(ZoneId.systemDefault())
+                .toInstant()
+                .toEpochMilli();
+
+        Man father1 = new Man("Vito", "Karleone", birthDate1);
+        Woman mother1 = new Woman("Jane", "Karleone", birthDate2);
+        Human otherChild = new Human("Adopted", "Child", "20/03/2016", 120);
 
         Map<String, String> schedule1 = new HashMap<>();
         schedule1.put(DayOfWeek.MONDAY.name(), "gym");
@@ -78,6 +96,10 @@ public class Main {
         System.out.println("All families:");
         familyController.displayAllFamilies();
 
+        System.out.println("Батько "+ father1.describeAge());
+        System.out.println("Мати " + mother1.describeAge());
+        System.out.println("Дітина " + child1.describeAge());
+        System.out.println("Усиновлена дитина " + otherChild.describeAge());
         Family retrievedFamily = familyController.getFamilyById(0);
         System.out.println("\nRetrieved family by index 0:");
         System.out.println(retrievedFamily);

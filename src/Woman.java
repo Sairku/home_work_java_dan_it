@@ -1,16 +1,16 @@
 import java.util.Map;
 
 public final class Woman extends Human {
-    public Woman(String name, String surname, int year) {
-        super(name, surname, year);
+    public Woman(String name, String surname, long birthDate) {
+        super(name, surname, birthDate);
     }
 
-    public Woman(String name, String surname, int year, Human mother, Human father) {
-        super(name, surname, year, mother, father);
+    public Woman(String name, String surname, long birthDate, Human mother, Human father) {
+        super(name, surname, birthDate, mother, father);
     }
 
-    public Woman(String name, String surname, int year, int iq, Map<String, String> schedule, Family family) {
-        super(name, surname, year, iq, schedule, family);
+    public Woman(String name, String surname, long birthDate, int iq, Map<String, String> schedule, Family family) {
+        super(name, surname, birthDate, iq, schedule, family);
     }
 
     @Override

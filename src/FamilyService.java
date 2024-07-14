@@ -64,7 +64,7 @@ public class FamilyService {
     public void deleteAllChildrenOlderThan(int age) {
         List<Family> families = familyDao.getAllFamilies();
         for (Family family : families) {
-            family.getChildren().removeIf(child -> 2023 - child.getYear() > age);
+            family.getChildren().removeIf(child -> 2023 - child.getBirthDate() > age);
             familyDao.saveFamily(family);
         }
     }

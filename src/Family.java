@@ -1,7 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class Family {
     private Human mother;
@@ -72,11 +69,7 @@ public class Family {
     }
 
     public int hashCode() {
-        int result = mother.hashCode();
-        result = 23 * result + father.hashCode();
-        result = 23 * result + children.hashCode();
-        result = 23 * result + pets.hashCode();
-        return result;
+        return Objects.hash(mother, father, children, pets);
     }
 
     public Human getMother() {
