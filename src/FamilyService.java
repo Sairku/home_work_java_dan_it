@@ -1,4 +1,7 @@
-import java.util.ArrayList;
+import java.time.Instant;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -14,10 +17,8 @@ public class FamilyService {
     }
 
     public void displayAllFamilies() {
-        List<Family> families = familyDao.getAllFamilies();
-        for (int i = 0; i < families.size(); i++) {
-            System.out.println(i + ": " + families.get(i));
-        }
+        familyDao.getAllFamilies().forEach(family ->
+                System.out.println(familyDao.getAllFamilies().indexOf(family) + ": " + family));
     }
 
     public List<Family> getFamiliesBiggerThan(int size) {
@@ -32,8 +33,8 @@ public class FamilyService {
                 .collect(Collectors.toList());
     }
 
-    public int countFamiliesWithMemberNumber(int size) {
-        return (int) familyDao.getAllFamilies().stream()
+    public long countFamiliesWithMemberNumber(int size) {
+        return familyDao.getAllFamilies().stream()
                 .filter(family -> family.countFamily() == size)
                 .count();
     }
@@ -49,7 +50,7 @@ public class FamilyService {
 
     public Family bornChild(Family family, String maleName, String femaleName) {
         String name = Math.random() > 0.5 ? maleName : femaleName;
-        Human child = new Human(name, family.getFather().getSurname(), 2023);
+        Human child = new Human(name, family.getFather().getSurname(), LocalDate.now().atStartOfDay(ZoneId.systemDefault()).toInstant().toEpochMilli());
         family.addChild(child);
         familyDao.saveFamily(family);
         return family;
@@ -62,11 +63,13 @@ public class FamilyService {
     }
 
     public void deleteAllChildrenOlderThan(int age) {
-        List<Family> families = familyDao.getAllFamilies();
-        for (Family family : families) {
-            family.getChildren().removeIf(child -> 2023 - child.getBirthDate() > age);
+        familyDao.getAllFamilies().forEach(family -> {
+            family.getChildren().removeIf(child -> {
+                LocalDate birthDate = Instant.ofEpochMilli(child.getBirthDate()).atZone(ZoneId.systemDefault()).toLocalDate();
+                return Period.between(birthDate, LocalDate.now()).getYears() > age;
+            });
             familyDao.saveFamily(family);
-        }
+        });
     }
 
     public int count() {
@@ -80,7 +83,7 @@ public class FamilyService {
     public List<Pet> getPets(int index) {
         Family family = familyDao.getFamilyByIndex(index);
         if (family != null) {
-            return new ArrayList<>(family.getPets());
+            return family.getPets().stream().collect(Collectors.toList());
         }
         return null;
     }
@@ -92,6 +95,7 @@ public class FamilyService {
             familyDao.saveFamily(family);
         }
     }
+
     public void saveFamily(Family family) {
         familyDao.saveFamily(family);
     }

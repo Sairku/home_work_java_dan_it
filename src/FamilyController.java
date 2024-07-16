@@ -23,7 +23,7 @@ public class FamilyController {
         return familyService.getFamiliesLessThan(size);
     }
 
-    public int countFamiliesWithMemberNumber(int size) {
+    public long countFamiliesWithMemberNumber(int size) {
         return familyService.countFamiliesWithMemberNumber(size);
     }
 

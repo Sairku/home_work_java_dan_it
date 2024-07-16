@@ -28,7 +28,7 @@ public class FamilyServiceTest {
         family.addChild(new Human("Anna", "Doe", 2005));
         familyService.saveFamily(family);
 
-        int count = familyService.countFamiliesWithMemberNumber(3);
+        long count = familyService.countFamiliesWithMemberNumber(3);
         assertEquals(0, count);
     }
 
