@@ -101,10 +101,13 @@ public Human(String name, String surname, long birthDate, int iq){
     }
     public String prettyFormat() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-        LocalDate birthDate = Instant.ofEpochMilli(this.birthDate).atZone(ZoneId.systemDefault()).toLocalDate();
-        String formattedBirthDate = birthDate.format(formatter);
+        LocalDate birthDateLocal = Instant.ofEpochMilli(this.birthDate)
+                .atZone(ZoneId.systemDefault())
+                .toLocalDate();
+        String formattedDate = birthDateLocal.format(formatter);
+
         return String.format("{name='%s', surname='%s', birthDate='%s', iq=%d, schedule=%s}",
-                name, surname, formattedBirthDate, iq, schedule);
+                name, surname, formattedDate, iq, schedule);
     }
 
 

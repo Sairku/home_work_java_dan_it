@@ -73,18 +73,16 @@ public class Family {
 
 
     public String prettyFormat() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("family:\n")
-                .append("\tmother: ").append(mother.prettyFormat()).append(",\n")
-                .append("\tfather: ").append(father.prettyFormat()).append(",\n")
-                .append("\tchildren:\n");
-        for (Human child : children) {
-            sb.append("\t\t").append(child.prettyFormat()).append("\n");
-        }
-        sb.append("\tpets: ").append(pets.stream()
+        String motherDetails = "mother: " + mother.prettyFormat();
+        String fatherDetails = "father: " + father.prettyFormat();
+        String childrenDetails = "children:\n" + children.stream()
+                .map(Human::prettyFormat)
+                .collect(Collectors.joining("\n"));
+        String petsDetails = "pets: " + pets.stream()
                 .map(Pet::prettyFormat)
-                .collect(Collectors.joining(", ", "[", "]")));
-        return sb.toString();
+                .collect(Collectors.joining(", "));
+
+        return String.format("family:\n\t%s\n\t%s\n\t%s\n\t%s", motherDetails, fatherDetails, childrenDetails, petsDetails);
     }
 
     public Human getMother() {

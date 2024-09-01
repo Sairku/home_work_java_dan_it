@@ -27,6 +27,7 @@ public class Main {
                     case "2":
                         // Відобразити весь список сімей
                         familyController.displayAllFamilies();
+                        System.out.println("s");
                         break;
                     case "3":
                         // Відобразити список сімей, де кількість людей більша за задану
@@ -116,7 +117,6 @@ public class Main {
     }
 
     private static void populateWithTestData(FamilyController familyController) {
-        // Create test data
         Human mother1 = new Human("Jane", "Doe", "01/01/1980", 100);
         Human father1 = new Human("John", "Doe", "01/01/1975", 100);
         Family family1 = new Family(mother1, father1);
@@ -127,7 +127,8 @@ public class Main {
         Family family2 = new Family(mother2, father2);
         familyController.saveFamily(family2);
 
-        System.out.println("Test data created.");
+        System.out.println("Test data created:");
+        familyController.displayAllFamilies();
     }
 
     private static Human readHumanDetails(Scanner scanner, String role) {

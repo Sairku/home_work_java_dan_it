@@ -29,7 +29,12 @@ public class CollectionFamilyDao implements IFamilyDao{
 
     @Override
     public void saveFamily(Family family) {
-
+        if (!families.contains(family)) {
+            families.add(family);
+        } else {
+            int index = families.indexOf(family);
+            families.set(index, family);
+        }
     }
 
     @Override

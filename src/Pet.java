@@ -1,5 +1,6 @@
 import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public abstract class Pet {
     private Species species;
@@ -59,7 +60,7 @@ public abstract class Pet {
 
     public String prettyFormat() {
         return String.format("{species=%s, nickname='%s', age=%d, trickLevel=%d, habits=%s}",
-                species, nickname, age, trickLevel, habits);
+                species, nickname, age, trickLevel, habits.stream().collect(Collectors.joining(", ")));
     }
 
     public Species getSpecies(){

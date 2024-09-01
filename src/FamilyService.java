@@ -15,9 +15,13 @@ public class FamilyService {
 
     public void displayAllFamilies() {
         List<Family> families = familyDao.getAllFamilies();
-        families.stream()
-                .map(Family::prettyFormat)
-                .forEach(System.out::println);
+        if (families.isEmpty()) {
+            System.out.println("No families found.");
+        } else {
+            for (int i = 0; i < families.size(); i++) {
+                System.out.println((i + 1) + ": " + families.get(i).prettyFormat());
+            }
+        }
     }
 
     public List<Family> getFamiliesBiggerThan(int size) {
