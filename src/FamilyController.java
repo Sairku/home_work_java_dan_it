@@ -15,16 +15,16 @@ public class FamilyController {
         familyService.displayAllFamilies();
     }
 
-    public List<Family> getFamiliesBiggerThan(int size) {
-        return familyService.getFamiliesBiggerThan(size);
+    public List<Family> getFamiliesBiggerThan(int count) {
+        return familyService.getFamiliesBiggerThan(count);
     }
 
-    public List<Family> getFamiliesLessThan(int size) {
-        return familyService.getFamiliesLessThan(size);
+    public List<Family> getFamiliesLessThan(int count) {
+        return familyService.getFamiliesLessThan(count);
     }
 
-    public long countFamiliesWithMemberNumber(int size) {
-        return familyService.countFamiliesWithMemberNumber(size);
+    public long countFamiliesWithMemberNumber(int count) {
+        return familyService.countFamiliesWithMemberNumber(count);
     }
 
     public void createNewFamily(Human mother, Human father) {
@@ -36,10 +36,16 @@ public class FamilyController {
     }
 
     public Family bornChild(Family family, String maleName, String femaleName) {
+        if (family.countFamily() > 10) {
+            throw new FamilyOverflowException("Розмір сім'ї перевищує 10 членів.");
+        }
         return familyService.bornChild(family, maleName, femaleName);
     }
 
     public Family adoptChild(Family family, Human child) {
+        if (family.countFamily() > 10) {
+            throw new FamilyOverflowException("Розмір сім'ї перевищує 10 членів.");
+        }
         return familyService.adoptChild(family, child);
     }
 

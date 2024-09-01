@@ -76,8 +76,8 @@ public Human(String name, String surname, long birthDate, int iq){
     public String describeAge(){
         LocalDate birthDate = Instant.ofEpochMilli(this.birthDate).atZone(ZoneId.systemDefault()).toLocalDate();
         LocalDate now = LocalDate.now();
-        Period period = Period.between(birthDate, now);
-        return String.format("Вік: %d років, %d місяців, %d днів", period.getYears(), period.getMonths(), period.getDays());
+        return String.format("Вік: %d років, %d місяців, %d днів", Period.between(birthDate, now).getYears(),
+                Period.between(birthDate, now).getMonths(), Period.between(birthDate, now).getDays());
     }
 
     @Override
@@ -91,7 +91,6 @@ public Human(String name, String surname, long birthDate, int iq){
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
         LocalDate birthDate = Instant.ofEpochMilli(this.birthDate).atZone(ZoneId.systemDefault()).toLocalDate();
         String formattedDate = birthDate.format(formatter);
-
         return "Human{" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
@@ -100,6 +99,14 @@ public Human(String name, String surname, long birthDate, int iq){
                 ", schedule=" + schedule +
                 '}';
     }
+    public String prettyFormat() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthDate = Instant.ofEpochMilli(this.birthDate).atZone(ZoneId.systemDefault()).toLocalDate();
+        String formattedBirthDate = birthDate.format(formatter);
+        return String.format("{name='%s', surname='%s', birthDate='%s', iq=%d, schedule=%s}",
+                name, surname, formattedBirthDate, iq, schedule);
+    }
+
 
     @Override
     public boolean equals(Object obj) {
@@ -166,4 +173,6 @@ public Human(String name, String surname, long birthDate, int iq){
     public void setFamily(Family family) {
         this.family = family;
     }
+
+
 }

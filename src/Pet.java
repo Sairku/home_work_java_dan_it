@@ -1,9 +1,7 @@
-import java.util.Arrays;
-import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 public abstract class Pet {
-
     private Species species;
     private String nickname;
     private int age;
@@ -20,16 +18,10 @@ public abstract class Pet {
         System.out.println("Потрібно добре замести сліди...");
     }
 
-
     @Override
     public String toString() {
-        return "Pet{" +
-                "species='" + species + '\'' +
-                ", nickname='" + nickname + '\'' +
-                ", age=" + age +
-                ", trickLevel=" + trickLevel +
-                ", habits=" + habits.toString() +
-                '}';
+        return String.format("{species=%s, nickname='%s', age=%d, trickLevel=%d, habits=%s}",
+                species, nickname, age, trickLevel, habits);
     }
 
     @Override
@@ -38,16 +30,16 @@ public abstract class Pet {
         super.finalize();
     }
 
-    public Pet(String nickname ){
-        this.species = Species.UNKNOWN;
+    public Pet(Species species, String nickname){
+        this.species = species != null ? species : Species.UNKNOWN;
         this.nickname = nickname;
     }
     public Pet(String nickname, int age, int trickLevel,Set<String> habits ){
-        this.species = Species.UNKNOWN;
+        this.species = species != null ? species : Species.UNKNOWN;
         this.nickname = nickname;
         this.age = age;
         this.trickLevel = trickLevel;
-        this.habits = new HashSet<>();
+        this.habits = habits;
     }
     public Pet(){this.species = Species.UNKNOWN;};
 
@@ -62,12 +54,12 @@ public abstract class Pet {
     }
 
     public int hashCode() {
-        int result = species.hashCode();
-        result = 23 * result + nickname.hashCode();
-        result = 23 * result + age;
-        result = 23 * result + trickLevel;
-        result = 23 * result + habits.hashCode();
-        return result;
+        return Objects.hash(species, nickname, age, trickLevel, habits);
+    }
+
+    public String prettyFormat() {
+        return String.format("{species=%s, nickname='%s', age=%d, trickLevel=%d, habits=%s}",
+                species, nickname, age, trickLevel, habits);
     }
 
     public Species getSpecies(){
@@ -100,5 +92,7 @@ public abstract class Pet {
     public void setHabits(Set<String> habits) {
         this.habits = habits;
     }
+
+
 }
 
