@@ -6,7 +6,7 @@ public class CollectionFamilyDao implements IFamilyDao{
 
     @Override
     public List<Family> getAllFamilies() {
-        return List.of();
+        return new ArrayList<>(families);
     }
 
     @Override
@@ -19,6 +19,10 @@ public class CollectionFamilyDao implements IFamilyDao{
 
     @Override
     public boolean deleteFamily(int index) {
+        if (index >= 0 && index < families.size()) {
+            families.remove(index);
+            return true;
+        }
         return false;
     }
 

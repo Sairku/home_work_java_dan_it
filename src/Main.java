@@ -1,5 +1,7 @@
 import java.time.LocalDate;
 import java.time.ZoneId;
+import java.util.Arrays;
+import java.util.HashSet;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -19,54 +21,46 @@ public class Main {
             try {
                 switch (command) {
                     case "1":
-                        // Заповнити тестовими даними
                         populateWithTestData(familyController);
                         System.out.println("Test data created.");
-                        familyController.displayAllFamilies();
                         break;
                     case "2":
-                        // Відобразити весь список сімей
                         familyController.displayAllFamilies();
                         System.out.println("s");
                         break;
                     case "3":
-                        // Відобразити список сімей, де кількість людей більша за задану
                         System.out.print("Enter the minimum number of family members: ");
                         int minSize = scanner.nextInt();
-                        scanner.nextLine(); // consume newline
+                        scanner.nextLine();
                         familyController.getFamiliesBiggerThan(minSize).forEach(family -> System.out.println(family.prettyFormat()));
                         break;
                     case "4":
-                        // Відобразити список сімей, де кількість людей менша за задану
                         System.out.print("Enter the maximum number of family members: ");
                         int maxSize = scanner.nextInt();
-                        scanner.nextLine(); // consume newline
+                        scanner.nextLine();
                         familyController.getFamiliesLessThan(maxSize).forEach(family -> System.out.println(family.prettyFormat()));
                         break;
                     case "5":
-                        // Підрахувати кількість сімей, де кількість членів дорівнює
                         System.out.print("Enter the exact number of family members: ");
                         int exactSize = scanner.nextInt();
-                        scanner.nextLine(); // consume newline
+                        scanner.nextLine();
                         long count = familyController.countFamiliesWithMemberNumber(exactSize);
                         System.out.println("Number of families with " + exactSize + " members: " + count);
                         break;
                     case "6":
-                        // Створити нову родину
                         try {
                             Human mother = readHumanDetails(scanner, "mother");
                             Human father = readHumanDetails(scanner, "father");
                             familyController.createNewFamily(mother, father);
                         } catch (InputMismatchException e) {
                             System.out.println("Invalid input. Please try again.");
-                            scanner.nextLine(); // clear the invalid input
+                            scanner.nextLine();
                         }
                         break;
                     case "7":
-                        // Видалити сім'ю за індексом сім'ї у загальному списку
                         System.out.print("Enter the index of the family to delete: ");
                         int indexToDelete = scanner.nextInt();
-                        scanner.nextLine(); // consume newline
+                        scanner.nextLine();
                         boolean success = familyController.deleteFamilyByIndex(indexToDelete);
                         if (success) {
                             System.out.println("Family deleted successfully.");
@@ -75,17 +69,15 @@ public class Main {
                         }
                         break;
                     case "8":
-                        // Редагувати сім'ю за індексом сім'ї у загальному списку
                         System.out.print("Enter the index of the family to edit: ");
                         int indexToEdit = scanner.nextInt();
-                        scanner.nextLine(); // consume newline
+                        scanner.nextLine();
                         editFamily(scanner, familyController, indexToEdit);
                         break;
                     case "9":
-                        // Видалити всіх дітей старше віку
                         System.out.print("Enter the age threshold: ");
                         int age = scanner.nextInt();
-                        scanner.nextLine(); // consume newline
+                        scanner.nextLine();
                         familyController.deleteAllChildrenOlderThan(age);
                         System.out.println("All children older than " + age + " have been deleted.");
                         break;
@@ -120,15 +112,32 @@ public class Main {
         Human mother1 = new Human("Jane", "Doe", "01/01/1980", 100);
         Human father1 = new Human("John", "Doe", "01/01/1975", 100);
         Family family1 = new Family(mother1, father1);
-        familyController.saveFamily(family1);
+        familyController.saveFamily(family1); // Family with 2 members
 
         Human mother2 = new Human("Sarah", "Connor", "01/01/1975", 95);
         Human father2 = new Human("Kyle", "Connor", "01/01/1970", 90);
         Family family2 = new Family(mother2, father2);
-        familyController.saveFamily(family2);
+        Human child1 = new Human("Michael", "Connor", "01/01/2000", 90);
+        family2.addChild(child1);
+        familyController.saveFamily(family2); // Family with 3 members
 
-        System.out.println("Test data created:");
-        familyController.displayAllFamilies();
+        Human mother3 = new Human("Linda", "Smith", "01/01/1978", 85);
+        Human father3 = new Human("Tom", "Smith", "01/01/1975", 88);
+        Family family3 = new Family(mother3, father3);
+        Human child2 = new Human("Anna", "Smith", "01/01/2002", 92);
+        Human child3 = new Human("Lisa", "Smith", "01/01/2005", 89);
+        family3.addChild(child2);
+        family3.addChild(child3);
+        familyController.saveFamily(family3); // Family with 4 members
+
+        Human mother4 = new Human("Emily", "Brown", "01/01/1982", 97);
+        Human father4 = new Human("David", "Brown", "01/01/1980", 94);
+        Family family4 = new Family(mother4, father4);
+        Human child4 = new Human("James", "Brown", "01/01/2010", 88);
+        family4.addChild(child4);
+        Pet pet1 = new Dog("Buddy", 3, 50, new HashSet<>(Arrays.asList("bark", "fetch")));
+        family4.getPets().add(pet1);
+        familyController.saveFamily(family4); // Family with 4 members including a pet
     }
 
     private static Human readHumanDetails(Scanner scanner, String role) {
