@@ -105,4 +105,11 @@ public class FamilyService {
     public void saveFamily(Family family) {
         familyDao.saveFamily(family);
     }
+    public void saveData() {
+        ((CollectionFamilyDao) familyDao).saveDataToFile();
+    }
+
+    public void loadData() {
+        ((CollectionFamilyDao) familyDao).loadDataFromFile();
+    }
 }

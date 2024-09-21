@@ -26,7 +26,6 @@ public class Main {
                         break;
                     case "2":
                         familyController.displayAllFamilies();
-                        System.out.println("s");
                         break;
                     case "3":
                         System.out.print("Enter the minimum number of family members: ");
@@ -81,6 +80,29 @@ public class Main {
                         familyController.deleteAllChildrenOlderThan(age);
                         System.out.println("All children older than " + age + " have been deleted.");
                         break;
+                    case "11":
+
+                        populateWithTestData(familyController);
+                        break;
+                    case "12":
+
+                        familyController.displayAllFamilies();
+                        break;
+                    case "13":
+
+                        familyService.saveData();
+                        break;
+                    case "14":
+
+                        familyService.loadData();
+                        break;
+
+
+
+
+
+
+
                     case "exit":
                         System.out.println("Exiting...");
                         break;
@@ -104,6 +126,10 @@ public class Main {
         System.out.println("7. Delete family by index");
         System.out.println("8. Edit family by index");
         System.out.println("9. Delete all children older than a certain age");
+        System.out.println("11. Generate data");
+        System.out.println("12. Display all fam");
+        System.out.println("13. Save data");
+        System.out.println("14. Load data");
         System.out.println("Type 'exit' to quit");
         System.out.print("Enter command: ");
     }

@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.*;
 import java.util.stream.Collectors;
 
-public class Family {
+public class Family implements Serializable {
     private Human mother;
     private Human father;
     private List<Human> children;

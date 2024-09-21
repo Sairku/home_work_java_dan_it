@@ -1,8 +1,10 @@
+import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CollectionFamilyDao implements IFamilyDao{
     private List<Family> families = new ArrayList<>();
+    private static final String FILE_NAME = "families_data.ser";
 
     @Override
     public List<Family> getAllFamilies() {
@@ -44,6 +46,23 @@ public class CollectionFamilyDao implements IFamilyDao{
     @Override
     public int count() {
         return 0;
+    }
+    public void saveDataToFile() {
+        try (ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(FILE_NAME))) {
+            out.writeObject(families);
+            System.out.println("Data has been saved to the file.");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadDataFromFile() {
+        try (ObjectInputStream in = new ObjectInputStream(new FileInputStream(FILE_NAME))) {
+            families = (List<Family>) in.readObject();
+            System.out.println("Data has been loaded from the file.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }
 
